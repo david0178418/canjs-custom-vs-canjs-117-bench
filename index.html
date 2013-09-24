@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<script src="js/jquery.js"></script>
+	<script src="js/benchmarks.js"></script>
+
+	<style>
+		pre {
+			display: none;
+		}
+
+		.show-code {
+			cursor: pointer;
+			font-size: 10px;
+		}
+
+		#current,
+		#new {
+			float: left;
+			border: 1px solid gray;
+			padding: 10px;
+		}
+	</style>
+
+	<body>
+
+		<div id="test-element"></div>
+
+		<div id="current">
+			<h3>Current CanJS</h3>
+		</div>
+
+		<div id="new">
+			<h3>New CanJS</h3>
+		</div>
+
+		<script src="js/can.jquery.all.js"></script>
+		<script>
+			runBenchmarks('#current');
+			window.can = null;
+		</script>
+
+		<script src="js/can-1.1.7.jquery.min.js"></script>
+		<script>
+			runBenchmarks('#new');
+		</script>
+
+	</body>
+</html>
