@@ -4,6 +4,20 @@ function runBenchmarks(resultsId) {
 		startTime,
 		duration;
 
+	runTest('value computed', function(run) {
+		this.observe.attr('foo', run);
+	}, function() {
+		var observe = new can.Observe({foo: 'val'}),
+			computedValue = new can.compute(function() {
+				return can.compute('foo');
+			});
+
+		return {
+			observe: observe,
+			computedValue: computedValue
+		};
+	});
+
 	runTest('observes created', function() {
 		new can.Observe({
 			foo: 'val'
