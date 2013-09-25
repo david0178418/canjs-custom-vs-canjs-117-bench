@@ -34,8 +34,18 @@ function runBenchmarks(resultsId) {
 		};
 	});
 
-	runTest('observe events triggered', function(run) {
+	runTest('observe events triggered on single attribute', function(run) {
 		this.observe.attr('foo', run);
+	}, function() {
+		var observe = new can.Observe({foo: 'val'});
+		observe.bind('change', function() {});
+		return {
+			observe: observe
+		};
+	});
+
+	runTest('observe events triggered on many attributes', function(run) {
+		this.observe.attr('foo'+run, run);
 	}, function() {
 		var observe = new can.Observe({foo: 'val'});
 		observe.bind('change', function() {});
@@ -57,15 +67,25 @@ function runBenchmarks(resultsId) {
 	});
 
 	runTest('observe list item updates', function(run) {
-		this.observeList.attr('0.foo', run);
+		this.observeList.attr('0.foo'+run, run);
 	}, function() {
 		return {
 			observeList: new can.Observe.List([{foo: 'val'}])
 		};
 	});
 
-	runTest('observe list events triggered', function(run) {
+	runTest('observe list events triggered on single attribute', function(run) {
 		this.observeList.attr('0.foo', run);
+	}, function() {
+		var observeList = new can.Observe.List([{foo: 'val'}]);
+		observeList.bind('change', function() {});
+		return {
+			observeList: observeList
+		};
+	});
+
+	runTest('observe list events triggered on many attributes', function(run) {
+		this.observeList.attr('0.foo'+run, run);
 	}, function() {
 		var observeList = new can.Observe.List([{foo: 'val'}]);
 		observeList.bind('change', function() {});
@@ -90,11 +110,11 @@ function runBenchmarks(resultsId) {
 		};
 	});
 
-	runTest('controllers created', function(run) {
+	runTest('controllers created', function() {
 		new can.Control();
 	});
 
-	runTest('controller events triggered', function(run) {
+	runTest('controller events triggered', function() {
 		this.el.dispatchEvent(this.ev);
 	}, function() {
 		var root = $('<div><div class="child"></div></div>'),
